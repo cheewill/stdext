@@ -107,7 +107,6 @@ public:
         int RefCount = --m_Count;
 
         if (!RefCount) {
-        if (!RefCount) {
 
             if (OnFinalRelease()) {
                 return 1;
