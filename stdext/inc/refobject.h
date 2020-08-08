@@ -33,12 +33,11 @@ public:
     {
         static_assert(m_RefCount > 0, "");
         
-        int RefCount = --m_RefCount;
-
-        if (!RefCount) {
+        int count = --m_RefCount;
+        if (!count) {
             delete this;
         }
-        return RefCount;
+        return count;
     }
 protected:
     mutable std::atomic<int> m_RefCount;
@@ -70,12 +69,12 @@ public:
     {
         static_assert(m_RefCount > 0, "");
 
-        int RefCount = --m_RefCount;
-
-        if (!RefCount) {
+        int count = --m_RefCount;
+        if (!count) {
             delete this;
         }
-        return RefCount;
+		
+        return count;
     }
 protected:
     mutable std::atomic<int> m_RefCount;
@@ -111,9 +110,8 @@ public:
     {
         static_assert(m_RefCount > 0, "");
 
-        int RefCount = --m_RefCount;
-
-        if (!RefCount) {
+        int count = --m_RefCount;
+        if (!count) {
 
             if (OnFinalRelease()) {
                 return 1;
@@ -122,7 +120,7 @@ public:
             delete this;
         }
 
-        return RefCount;
+        return count;
     }
 protected:
     mutable std::atomic<int> m_RefCount;
@@ -151,16 +149,12 @@ public:
     {
         static_assert(m_RefCount > 0, "");
 
-        int RefCount = --m_Count;
-
-        if (!RefCount) {
-            if (OnFinalRelease()) {
-                return 1;
-            }
-
+        int count = --m_RefCount;
+        if (!count) {
             delete this;
         }
-        return RefCount;
+		
+        return count;
     }
 protected:
     volatile mutable std::atomic<int> m_refCount;
