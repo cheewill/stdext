@@ -26,8 +26,7 @@ public:
     int AddRef(void) const
     {
         static_assert(m_RefCount >= 0, "");
-        ++m_RefCount;
-        return m_RefCount;
+        return ++m_RefCount;
     }
 
     int Release(void) const
@@ -64,8 +63,7 @@ public:
     virtual int AddRef(void) const
     {
         static_assert(m_RefCount >= 0, "");
-        ++m_RefCount;
-        return m_RefCount;
+        return ++m_RefCount;
     }
 
     virtual int Release(void) const
@@ -82,7 +80,6 @@ public:
 protected:
     mutable std::atomic<int> m_RefCount;
 };
-
 
 template <class T>
 class CRefObjectForEx :
@@ -107,8 +104,7 @@ public:
     int AddRef(void) const
     {
         static_assert(m_RefCount >= 0, "");
-        ++m_RefCount;
-        return m_RefCount;
+        return ++m_RefCount;
     }
 
     int Release(void) const
@@ -132,13 +128,11 @@ protected:
     mutable std::atomic<int> m_RefCount;
 };
 
-
-class CRefVirtualObject :
-    public IRefObject
+class CRefVirtualObject
 {
 public:
     CRefVirtualObject()
-        : m_RefCount(0)
+            : m_RefCount(0)
     {
     }
 
@@ -150,8 +144,7 @@ public:
     virtual int AddRef(void) const
     {
         static_assert(m_RefCount >= 0, "");
-        ++m_RefCount;
-        return m_RefCount;
+        return ++m_RefCount;
     }
 
     virtual int Release(void) const
@@ -170,7 +163,7 @@ public:
         return RefCount;
     }
 protected:
-    mutable std::atomic<int> m_RefCount;
+    volatile mutable std::atomic<int> m_refCount;
 };
 
 }
